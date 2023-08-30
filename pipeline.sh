@@ -24,6 +24,10 @@ if [ ! -d output ]; then
     exit 1
 fi;
 
+# remove any placeholder files required by git
+rm -rf input/.gitignore
+rm -rf output/.gitignore
+
 cd output
 numFiles=`ls -a | wc -l`
 if [ $numFiles -ne 2 ];
