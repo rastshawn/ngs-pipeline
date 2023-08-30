@@ -1,0 +1,5 @@
+Only ever have one file in each of these folders. The dockerfile will unzip everything in there and assume that there's only one folder.
+
+If you want other versions of these apps, you should just be able to swap them out and make a new image. 
+
+More information is available in the main README.

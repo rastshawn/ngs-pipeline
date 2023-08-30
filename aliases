@@ -1,0 +1,5 @@
+alias _build="docker build --platform linux/amd64 -t ngs-pipeline ."
+alias _run="docker run --rm --platform linux/amd64 -v ./output:/root/output -v ./input:/root/input -w /root  ngs-pipeline"
+alias _clean="docker image remove -f ngs-pipeline"
+alias _interactive="docker run --rm --platform linux/amd64 -it --entrypoint bash -v ./output:/root/output -v ./input:/root/input -w /root  ngs-pipeline"
+alias _aliastest="echo 'Aliases are enabled'"
