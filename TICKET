@@ -1,0 +1,5 @@
+Add a script that allows a user to automatically download and populate the downloads-to-install folder,
+using links to the versions of software originally used. 
+
+* Print each link and the intended filename, as well as tips to find something compatible if it fails. 
+ 
