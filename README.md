@@ -97,9 +97,9 @@ On Windows, either use aliases or change the slashes to the left of the colons t
 With aliases, run `_interactive`.
 
 That will open the image, mapping the input and output folders on your computer to input and output folders inside the image. The required tools are already installed for running manually. In order to follow older instructions for running the pipeline manually, I would recommend:
-    * Copy picard.jar into the output directory so that it's there while you work in that directory with `cp picard.jar output/`.
-    * Copy any input files into the output directory so that the scripts can see them. `cp input/* output/`
-    * Enter the output directory with `cd output`. 
+* Copy picard.jar into the output directory so that it's there while you work in that directory with `cp picard.jar output/`.
+* Copy any input files into the output directory so that the scripts can see them. `cp input/* output/`
+* Enter the output directory with `cd output`. 
 Then any of the commands from pipeline documentation should run. Viewing the contents of pipeline.sh should demonstrate the commands required, though you will need to edit them with correct names. 
 
 This container  also has lofreq installed, and you can use it in this interactive shell as well.  
@@ -108,53 +108,53 @@ This container  also has lofreq installed, and you can use it in this interactiv
 If the built image (the .tar file) either doesn't run on your machine or it needs to be updated with newer versions of any of the tools used by the pipeline, you'll need to be able to build a new one from the Dockerfile.
 
 Building using the Dockerfile:
-	* Ensure that the required programs are present in the downloads-to-install directory:
-		* The easiest way to do this is to run `./get-requirements.sh`, or on Windows, double-click `get-requirements.bat`. This should download the versions of bamtools, bowtie2, lofreq, picard, and samtools that were originally used in the development of this image and place them in the correct folders. These scripts may break in the future if the providers of those programs change their links.
-		* Otherwise, or if you are upgrading/modifying your image to include specific versions of the software, manually download and copy the software into the downloads-to-install folder:
-			* Make sure that the downloads-to-install folder contains only one version of each software.
-			* Bamtools' download should be a zipped source folder, ending in .tar.gz
-			* Bowtie2 should be a linux binary ending in .zip
-			* lofreq should be a linux binary ending in .tgz - not the source ending in .tar.gz
-			* picard should just be the jarfile, ending in .jar
-			* samtools is built from source as well with .tar.bz2.
-			* In most cases, these downloads came from the GitHub releases page for each project, but you can also read the get-requirements script contents for more information.
-    * Ensure that there are the following files and folders in the ngs-pipeline directory:
-        * downloads-to-install
-        * Dockerfile
-        * pipeline.sh
-        * input
-        * output
-	* If possible, use aliases (check the aliases section of this document). 
-	* Clean the build environment:
-		* With aliases, run `_clean`.
-		* Without aliases, run `docker image remove -f ngs-pipeline`.
-		* Note - it's okay if this command returns an error. 
-	* Build the image:
-		* Make sure your terminal is in the ngs-pipeline folder. 
-		* With aliases, run `_build`.
-		* Without aliases, run `docker build --platform linux/amd64 -t ngs-pipeline .`
-		* Note - Any number of problems can happen with this command. What this does is it tells Docker to read the contents of the Dockerfile and try to build a container with them. It could fail because you don't have the correct folder layout mentioned above, because certain software packages are no longer available, or because the pipeline tools have been updated in such a way that the scripts currently used to compile them will no longer work. Commands in a Dockerfile are executed sequentially when `docker build` is ran, so you should be able to see what command failed. Each RUN command in the Dockerfile should be able to be separated into individual shell commands by removing the `&& \` at the end of each line. Commenting out the failing command in the Dockerfile, building, and then running these shell commands in _interactive mode should help narrow down the problem.   
-	* Run the image:
-		* With aliases, run `_run`. 
-		* Without aliases, run `docker run --rm --platform linux/amd64 -v ./output:/root/output -v ./input:/root/input -w /root  ngs-pipeline`.
-	* If the pipeline builds and runs as you expect, export the image you built for future use:
-		* Run `docker save ngs-pipeline --output image.tar`. 
-		* This will allow others to install and use the image without needing to build it. It makes an archive of the docker image named "ngs-pipeline".
+* Ensure that the required programs are present in the downloads-to-install directory:
+	* The easiest way to do this is to run `./get-requirements.sh`, or on Windows, double-click `get-requirements.bat`. This should download the versions of bamtools, bowtie2, lofreq, picard, and samtools that were originally used in the development of this image and place them in the correct folders. These scripts may break in the future if the providers of those programs change their links.
+	* Otherwise, or if you are upgrading/modifying your image to include specific versions of the software, manually download and copy the software into the downloads-to-install folder:
+		* Make sure that the downloads-to-install folder contains only one version of each software.
+		* Bamtools' download should be a zipped source folder, ending in .tar.gz
+		* Bowtie2 should be a linux binary ending in .zip
+		* lofreq should be a linux binary ending in .tgz - not the source ending in .tar.gz
+		* picard should just be the jarfile, ending in .jar
+		* samtools is built from source as well with .tar.bz2.
+		* In most cases, these downloads came from the GitHub releases page for each project, but you can also read the get-requirements script contents for more information.
+* Ensure that there are the following files and folders in the ngs-pipeline directory:
+	* downloads-to-install
+	* Dockerfile
+	* pipeline.sh
+	* input
+	* output
+* If possible, use aliases (check the aliases section of this document). 
+* Clean the build environment:
+	* With aliases, run `_clean`.
+	* Without aliases, run `docker image remove -f ngs-pipeline`.
+	* Note - it's okay if this command returns an error. 
+* Build the image:
+	* Make sure your terminal is in the ngs-pipeline folder. 
+	* With aliases, run `_build`.
+	* Without aliases, run `docker build --platform linux/amd64 -t ngs-pipeline .`
+	* Note - Any number of problems can happen with this command. What this does is it tells Docker to read the contents of the Dockerfile and try to build a container with them. It could fail because you don't have the correct folder layout mentioned above, because certain software packages are no longer available, or because the pipeline tools have been updated in such a way that the scripts currently used to compile them will no longer work. Commands in a Dockerfile are executed sequentially when `docker build` is ran, so you should be able to see what command failed. Each RUN command in the Dockerfile should be able to be separated into individual shell commands by removing the `&& \` at the end of each line. Commenting out the failing command in the Dockerfile, building, and then running these shell commands in _interactive mode should help narrow down the problem.   
+* Run the image:
+	* With aliases, run `_run`. 
+	* Without aliases, run `docker run --rm --platform linux/amd64 -v ./output:/root/output -v ./input:/root/input -w /root  ngs-pipeline`.
+* If the pipeline builds and runs as you expect, export the image you built for future use:
+	* Run `docker save ngs-pipeline --output image.tar`. 
+	* This will allow others to install and use the image without needing to build it. It makes an archive of the docker image named "ngs-pipeline".
 
 Upgrading a package:
 If one of the programs used in the pipeline has a new version available, it is possible to upgrade this image to include it. In short, what you'll need to do is:
-	* Download the software release. If a package mentions architecture (like x86_64) you're looking for either x86_64 or amd64. You're also looking for the linux version, regardless of the operating system you're using.
-		* The included bamtools is from: https://github.com/pezmaster31/bamtools/releases
-		* bowtie2: https://sourceforge.net/projects/bowtie-bio/files/bowtie2/
-		* picard: https://github.com/broadinstitute/picard/releases/
-		* samtools: https://github.com/samtools/samtools/releases
-		* lofreq: https://github.com/CSB5/lofreq/tree/master/dist
-	* Drop it into the downloads-to-install subfolder that matches the software to be upgraded.
-	* Ensure that the previous version and the current version have the same file extension. Otherwise, the docker image build script will fail. If the extensions differ and you've downloaded an official release, the build script will likely require modification to use the new software.
-	* Build and export the new image using the "Building Using the Dockerfile" section above.
+* Download the software release. If a package mentions architecture (like x86_64) you're looking for either x86_64 or amd64. You're also looking for the linux version, regardless of the operating system you're using.
+	* The included bamtools is from: https://github.com/pezmaster31/bamtools/releases
+	* bowtie2: https://sourceforge.net/projects/bowtie-bio/files/bowtie2/
+	* picard: https://github.com/broadinstitute/picard/releases/
+	* samtools: https://github.com/samtools/samtools/releases
+	* lofreq: https://github.com/CSB5/lofreq/tree/master/dist
+* Drop it into the downloads-to-install subfolder that matches the software to be upgraded.
+* Ensure that the previous version and the current version have the same file extension. Otherwise, the docker image build script will fail. If the extensions differ and you've downloaded an official release, the build script will likely require modification to use the new software.
+* Build and export the new image using the "Building Using the Dockerfile" section above.
 
 Modifying the pipeline script:
-	* Edit `pipeline.sh` and build/export the resultant image using the "Building Using the Dockerfile" section above. 
+* Edit `pipeline.sh` and build/export the resultant image using the "Building Using the Dockerfile" section above. 
 
 ## Enabling Virtualization in BIOS (Windows only)
 Most Windows machines will require a BIOS setting to be changed in order for Docker to run correctly. This process will be different for every PC, but is broadly broken down into two questions:
@@ -169,13 +169,13 @@ Here are the search terms I would use:
 `enter bios [motherboard]` and, once I knew how to do that, `enable virtualization [motherboard]`. If you're using a laptop or a prebuilt desktop, replace "motherboard" with your model number - like ThinkPad P15s or dell optiplex 9020. If you're using a custom-built PC or you've not found anything useful for your model number, try searching using your motherboard specifically.
 
 In order to find what your motherboard is:
-	* press WindowsKey+R
-	* type "msinfo32"
-	* press ok. 
-	* click "System Summary" in the top left
-	* in the panel on the right side of the screen:
-		* find "BaseBoard Manufacturer" and
-		* find "BaseBoard Product".
+* press WindowsKey+R
+* type "msinfo32"
+* press ok. 
+* click "System Summary" in the top left
+* in the panel on the right side of the screen:
+	* find "BaseBoard Manufacturer" and
+	* find "BaseBoard Product".
 If "BaseBoard Product" seems like human-readable text and not just a string of number, I would try those search terms above replacing "motherboard" with "BaseBoard Product" first. Otherwise, or if the results are unhelpful, I'd switch to "BaseBoard Manufacturer". Entering bios is usually manufacturer-specific, but enabling virtualization is often product-specific, so you may need to find virtualization instructions for specifically your "BaseBoard Product" if manufacturer instructions look different from your machine.
 
 If you're stuck and are asking tech support or a tech-savvy friend for help, you're specifically asking for advice on how to "enable hardware virtualization in your machine's BIOS". 
