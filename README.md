@@ -106,10 +106,16 @@ This container  also has lofreq installed, and you can use it in this interactiv
 If the built image (the .tar file) either doesn't run on your machine or it needs to be updated with newer versions of any of the tools used by the pipeline, you'll need to be able to build a new one from the Dockerfile.
 
 Building using the Dockerfile:
-    * Make sure that the downloads-to-install folder contains only one version of each software. 
-        * Bamtools' download should end in .tar.gz, bowtie2 .zip, picard .jar, and samtools .tar.bz2.
-		* lofreq uses a prebuilt binary .tgz file for linux, not the .tar.gz source file. 
-        * In most cases, these are just downloaded from Github's releases page for each project. 
+	* Ensure that the required programs are present in the downloads-to-install directory:
+		* The easiest way to do this is to run `./get-requirements.sh`, or on Windows, double-click `get-requirements.bat`. This should download the versions of bamtools, bowtie2, lofreq, picard, and samtools that were originally used in the development of this image and place them in the correct folders. These scripts may break in the future if the providers of those programs change their links.
+		* Otherwise, or if you are upgrading/modifying your image to include specific versions of the software, manually download and copy the software into the downloads-to-install folder:
+			* Make sure that the downloads-to-install folder contains only one version of each software.
+			* Bamtools' download should be a zipped source folder, ending in .tar.gz
+			* Bowtie2 should be a linux binary ending in .zip
+			* lofreq should be a linux binary ending in .tgz - not the source ending in .tar.gz
+			* picard should just be the jarfile, ending in .jar
+			* samtools is built from source as well with .tar.bz2.
+			* In most cases, these downloads came from the GitHub releases page for each project, but you can also read the get-requirements script contents for more information.
     * Ensure that there are the following files and folders in the ngs-pipeline directory:
         * downloads-to-install
         * Dockerfile
