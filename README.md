@@ -13,9 +13,9 @@ Many of the commands for building and running the docker image and pipeline are 
 In Windows, aliases are automatically loaded into the Command Prompt window that launches when you double-click `windows.bat`. You can use them without taking any further action.
 
 In MacOS or Linux, to add these aliases to your terminal:
-	* Open a terminal and set the working directory to the ngs-pipeline folder.
-		* On MacOS, you can do this by right-clicking the folder and choosing "New Terminal At Folder". 
-	* Run `. aliases` (don't forget the dot).
+* Open a terminal and set the working directory to the ngs-pipeline folder.
+	* On MacOS, you can do this by right-clicking the folder and choosing "New Terminal At Folder". 
+* Run `. aliases` (don't forget the dot).
 The aliases will continue to work until you close your terminal window. Aliases are reset when you open new terminal windows, so you'll need to run it in each terminal you open. This command produces no output, so it's okay if it looks like it didn't do anything. You can test to see if it worked by running the command `_aliastest`, which outputs "Aliases are enabled" if they are enabled.
 
 
