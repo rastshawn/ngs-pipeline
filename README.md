@@ -1,6 +1,6 @@
 ## ngs-pipeline
 
-This is a pipeline for analyzing next-generation sequencing results. An aligned sequence in a BAM file is compared to a reference fasta file in order to asses depth of coverage as well as prepare for processing single nucleotide variants and calculaint Shannon entropy. 
+This is a pipeline for analyzing next-generation sequencing results. An aligned sequence in a BAM file is compared to a reference fasta file in order to assess depth of coverage as well as assist in determining single nucleotide variants and calculating Shannon entropy of the genome. 
 
 This project consists of a Docker image, the script and prerequisites to build that Docker image, and a script that runs within the Docker image. 
 For most tasks only the image and the script that it runs should be necessary - the build script is included for future maintenance. The image should work on any amd64 machine without being rebuilt, but Apple Silicon Macs may need to build it before using it. 
